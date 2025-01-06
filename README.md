@@ -1,7 +1,7 @@
 <h3>2025 Libs update description:</h3>
 <ul>
   <li>All libs updated to theirs last version (January 2025)</li>
-  <li>Max Android SDK фзз was tested on: 34 (Android 14)</li>
+  <li>Max Android SDK app was tested on: 34 (Android 14)</li>
 </ul>
 <h3>App was written with:</h3>
 <ul>
