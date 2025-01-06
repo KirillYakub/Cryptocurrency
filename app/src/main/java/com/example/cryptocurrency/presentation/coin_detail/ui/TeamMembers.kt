@@ -15,9 +15,7 @@ import com.example.cryptocurrency.data.remote.dto.TeamMember
 import androidx.compose.ui.Modifier
 
 @Composable
-fun TeamMembers(
-    teamMember: TeamMember
-) {
+fun TeamMembers(teamMember: TeamMember) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -28,9 +26,7 @@ fun TeamMembers(
             text = teamMember.name,
             style = MaterialTheme.typography.titleMedium
         )
-        Spacer(modifier = Modifier
-            .height(5.dp)
-        )
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = teamMember.position,
             style = MaterialTheme.typography.bodyLarge,

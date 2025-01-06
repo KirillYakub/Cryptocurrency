@@ -1,11 +1,11 @@
-package com.example.cryptocurrency.data.remote.dto
+package com.example.cryptocurrency.data.remote.dto.coin
 
 import com.example.cryptocurrency.domain.model.Coin
 
 data class CoinDto(
     val id: String,
-    val isActive: Boolean,
-    val isNew: Boolean,
+    val is_active: Boolean,
+    val is_new: Boolean,
     val name: String,
     val rank: Int,
     val symbol: String,
@@ -15,7 +15,7 @@ data class CoinDto(
 fun CoinDto.toCoin(): Coin {
     return Coin(
         id = id,
-        isActive = isActive,
+        isActive = is_active,
         name = name,
         rank = rank,
         symbol = symbol

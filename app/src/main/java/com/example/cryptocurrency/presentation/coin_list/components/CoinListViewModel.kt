@@ -1,5 +1,6 @@
 package com.example.cryptocurrency.presentation.coin_list.components
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class CoinListViewModel @Inject constructor(
     private val coinsUseCase: GetCoinsUseCase
 ): ViewModel() {
+
     private val _state = mutableStateOf(CoinsListState())
     val state: State<CoinsListState> = _state
 

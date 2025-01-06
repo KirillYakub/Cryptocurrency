@@ -31,23 +31,17 @@ import com.example.cryptocurrency.presentation.coin_detail.components.CoinDetail
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CoinDetailScreen(
-    viewModel: CoinDetailViewModel = hiltViewModel()
-) {
+fun CoinDetailScreen(viewModel: CoinDetailViewModel = hiltViewModel()) {
     val state = viewModel.state.value
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
         state.coins?.let { coin ->
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(20.dp)
             ) {
                 item {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
@@ -65,26 +59,19 @@ fun CoinDetailScreen(
                                 .weight(2f)
                         )
                     }
-                    Spacer(
-                        modifier = Modifier
-                            .height(15.dp)
-                    )
+                    Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = coin.description,
                         style = MaterialTheme.typography.bodyLarge
                     )
-                    Spacer(
-                        modifier = Modifier
-                            .height(15.dp)
-                    )
+                    Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = "Tags",
                         style = MaterialTheme.typography.titleMedium
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     FlowRow(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth(),
                         maxItemsInEachRow = 3,
                         horizontalArrangement = Arrangement.spacedBy(10.dp),
                         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -93,10 +80,7 @@ fun CoinDetailScreen(
                             CoinTag(tag = tag)
                         }
                     }
-                    Spacer(
-                        modifier = Modifier
-                            .height(15.dp)
-                    )
+                    Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = "Team members",
                         style = MaterialTheme.typography.titleMedium

@@ -25,13 +25,8 @@ fun CoinListScreen(
     viewModel: CoinListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
+    Box {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(state.coins) { coin ->
                 CoinsListItem(
                     coin = coin,
@@ -52,11 +47,11 @@ fun CoinListScreen(
                     .align(Alignment.Center)
             )
         }
-        if(state.isLoading)
+        if(state.isLoading) {
             CircularProgressIndicator(
-                modifier = Modifier
-                    .align(Alignment.Center),
+                modifier = Modifier.align(Alignment.Center),
                 strokeWidth = 5.dp
             )
+        }
     }
 }

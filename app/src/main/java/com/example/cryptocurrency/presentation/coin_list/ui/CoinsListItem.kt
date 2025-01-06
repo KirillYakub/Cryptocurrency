@@ -42,8 +42,7 @@ fun CoinsListItem(
             fontStyle = FontStyle.Italic,
             textAlign = TextAlign.End,
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier
-                .align(CenterVertically)
+            modifier = Modifier.align(CenterVertically)
         )
     }
 }

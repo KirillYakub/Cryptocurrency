@@ -1,5 +1,10 @@
-package com.example.cryptocurrency.data.remote.dto
+package com.example.cryptocurrency.data.remote.dto.coin
 
+import com.example.cryptocurrency.data.remote.dto.Tag
+import com.example.cryptocurrency.data.remote.dto.TeamMember
+import com.example.cryptocurrency.data.remote.dto.Whitepaper
+import com.example.cryptocurrency.data.remote.dto.links.Links
+import com.example.cryptocurrency.data.remote.dto.links.LinksExtended
 import com.example.cryptocurrency.domain.model.CoinDetail
 
 data class CoinDetailDto(

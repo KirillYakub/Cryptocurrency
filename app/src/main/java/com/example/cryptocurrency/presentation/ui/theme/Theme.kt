@@ -21,13 +21,11 @@ private val lightColor = lightColorScheme(
 )
 
 @Composable
-fun CryptocurrencyAppYTTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        darkColor
-    } else {
-        lightColor
-    }
-
+fun CryptocurrencyAppTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val colors = if (darkTheme) darkColor else lightColor
     MaterialTheme(
         colorScheme = colors,
         typography = Typography,
