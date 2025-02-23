@@ -1,6 +1,5 @@
-package com.example.cryptocurrency.presentation.coin_list.components
+package com.example.cryptocurrency.presentation.screens.coin_list.components
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -13,7 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class CoinListViewModel @Inject constructor(
+class CoinsListViewModel @Inject constructor(
     private val coinsUseCase: GetCoinsUseCase
 ): ViewModel() {
 
@@ -21,6 +20,10 @@ class CoinListViewModel @Inject constructor(
     val state: State<CoinsListState> = _state
 
     init {
+        onCoinsLoadOrRefresh()
+    }
+
+    fun onCoinsLoadOrRefresh() {
         getCoins()
     }
 
@@ -31,9 +34,7 @@ class CoinListViewModel @Inject constructor(
                     _state.value = CoinsListState(coins = result.data ?: emptyList())
                 }
                 is Resource.Error -> {
-                    _state.value = CoinsListState(
-                        error = result.message ?: "Sorry, something went wrong.."
-                    )
+                    _state.value = CoinsListState(error = result.message)
                 }
                 is Resource.Loading -> {
                     _state.value = CoinsListState(isLoading = true)

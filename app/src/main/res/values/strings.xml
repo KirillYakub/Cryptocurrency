@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Cryptocurrency</string>
+    <string name="connection_error_icon">Connection error icon</string>
+    <string name="active_coin">active</string>
+    <string name="inactive_coin">inactive</string>
+    <string name="coin_tags">Tags</string>
+    <string name="team_members_not_provided">Team members not provided</string>
+    <string name="team_members">Team members</string>
+    <string name="crypto_coins">Cryptocurrencies</string>
+    <string name="splash_icon">Splash icon</string>
+    <string name="pull_to_refresh">Pull to refresh</string>
+    <string name="alpha_anim_transition">Alpha anim transition</string>
+    <string name="alpha_anim">Alpha anim</string>
+    <string name="pager_indicator_anim">Pager indicator anim</string>
+    <string name="on_boarding_image">On boarding image</string>
 </resources>
