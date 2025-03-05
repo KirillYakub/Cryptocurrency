@@ -2,6 +2,7 @@ package com.example.cryptocurrency.presentation.ui.theme
 
 import androidx.compose.ui.unit.dp
 
+val AUTH_CONTENT_PADDING = 52.dp
 val ON_BOARD_CONTENT_PADDING = 40.dp
 
 val EXTRA_LARGE_PADDING = 20.dp

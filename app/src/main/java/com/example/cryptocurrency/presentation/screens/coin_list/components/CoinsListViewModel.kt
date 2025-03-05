@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptocurrency.common.Resource
+import com.example.cryptocurrency.domain.repository.FirebaseAuthRepository
 import com.example.cryptocurrency.domain.use_case.get_coins.GetCoinsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinsListViewModel @Inject constructor(
-    private val coinsUseCase: GetCoinsUseCase
+    private val coinsUseCase: GetCoinsUseCase,
+    private val firebaseAuthRepository: FirebaseAuthRepository
 ): ViewModel() {
 
     private val _state = mutableStateOf(CoinsListState())
@@ -25,6 +27,10 @@ class CoinsListViewModel @Inject constructor(
 
     fun onCoinsLoadOrRefresh() {
         getCoins()
+    }
+
+    fun signOutUser() {
+        firebaseAuthRepository.signOutUser()
     }
 
     private fun getCoins() {

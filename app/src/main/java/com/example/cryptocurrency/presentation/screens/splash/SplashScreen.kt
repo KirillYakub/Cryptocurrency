@@ -37,7 +37,7 @@ fun SplashScreen(
             )
         )
         val routeToNav =
-            if(isOnBoardingCompleted) Screen.CoinsListScreen.route else Screen.BoardScreen.route
+            if(isOnBoardingCompleted) Screen.AuthScreen.route else Screen.BoardScreen.route
         navController.navigate(routeToNav) {
             popUpTo(Screen.SplashScreen.route) {
                 inclusive = true

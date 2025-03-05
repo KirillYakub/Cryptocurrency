@@ -13,6 +13,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cryptocurrency.common.Constants.PARAM_COIN_ID
+import com.example.cryptocurrency.presentation.screens.auth.AuthScreen
 import com.example.cryptocurrency.presentation.screens.coin_detail.ui.CoinDetailScreen
 import com.example.cryptocurrency.presentation.screens.coin_list.ui.CoinsListScreen
 import com.example.cryptocurrency.presentation.screens.on_board.OnBoardScreen
@@ -41,10 +43,13 @@ fun NavGraph(navController: NavHostController = rememberNavController()) {
             composable(route = Screen.BoardScreen.route) {
                 OnBoardScreen(navController = navController)
             }
+            composable(route = Screen.AuthScreen.route) {
+                AuthScreen(navController = navController)
+            }
             composable(route = Screen.CoinsListScreen.route) {
                 CoinsListScreen(navController = navController)
             }
-            composable(route = Screen.CoinScreen.route + "/{coinId}") {
+            composable(route = Screen.CoinScreen.route + "/{$PARAM_COIN_ID}") {
                 CoinDetailScreen()
             }
         }

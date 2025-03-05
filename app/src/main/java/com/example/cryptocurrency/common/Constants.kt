@@ -6,6 +6,9 @@ object Constants {
 
     const val ON_BOARDING_PAGE_COUNT = 3
 
+    const val PASSWORD_MIN_LENGTH = 8
+    const val PASSWORD_MAX_LENGTH = 16
+
     const val BASE_URL = "https://api.coinpaprika.com/"
     const val PARAM_COIN_ID = "coinId"
 
