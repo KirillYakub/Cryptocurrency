@@ -1,5 +1,7 @@
 package com.example.cryptocurrency.presentation.screens.coin_list.ui
 
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +34,11 @@ fun CoinsListScreen(
     viewModel: CoinsListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
+    val activity = LocalActivity.current
+    BackHandler {
+        activity?.finish()
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             state.isLoading -> {
@@ -49,7 +56,11 @@ fun CoinsListScreen(
             else -> {
                 CoinsList(
                     coins = state.coins,
-                    navController = navController
+                    navController = navController,
+                    onSignOut = {
+                        viewModel.signOutUser()
+                        navController.navigateUp()
+                    }
                 )
             }
         }
@@ -59,11 +70,12 @@ fun CoinsListScreen(
 @Composable
 fun CoinsList(
     coins: List<Coin>,
-    navController: NavController
+    navController: NavController,
+    onSignOut: () -> Unit
 ) {
     Scaffold(
         topBar = {
-            CoinsListTopBar()
+            CoinsListTopBar(onSignOut = onSignOut)
         },
         containerColor = Color.Transparent
     ) { paddingValues ->

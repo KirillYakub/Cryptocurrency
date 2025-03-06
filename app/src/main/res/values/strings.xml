@@ -13,4 +13,13 @@
     <string name="alpha_anim">Alpha anim</string>
     <string name="pager_indicator_anim">Pager indicator anim</string>
     <string name="on_boarding_image">On boarding image</string>
+    <string name="auth_coin">Auth coin</string>
+    <string name="clear_field">Clear field</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="create_new_account">Create new account:</string>
+    <string name="sign_out_button">Sign out button</string>
 </resources>

@@ -1,6 +1,10 @@
 package com.example.cryptocurrency.presentation.screens.coin_list.ui
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -11,7 +15,7 @@ import com.example.cryptocurrency.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CoinsListTopBar() {
+fun CoinsListTopBar(onSignOut: () -> Unit) {
     TopAppBar(
         title = {
             Text(
@@ -19,9 +23,18 @@ fun CoinsListTopBar() {
                 style = MaterialTheme.typography.titleLarge
             )
         },
+        navigationIcon = {
+            IconButton(onClick = onSignOut) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ExitToApp,
+                    contentDescription = stringResource(R.string.sign_out_button)
+                )
+            }
+        },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.background,
-            titleContentColor = MaterialTheme.colorScheme.onBackground
+            titleContentColor = MaterialTheme.colorScheme.onBackground,
+            navigationIconContentColor = MaterialTheme.colorScheme.onBackground
         )
     )
 }
