@@ -1,7 +1,5 @@
 package com.example.cryptocurrency.presentation.screens.coin_list.ui
 
-import androidx.activity.compose.BackHandler
-import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +13,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -33,34 +32,37 @@ fun CoinsListScreen(
     navController: NavController,
     viewModel: CoinsListViewModel = hiltViewModel()
 ) {
-    val state = viewModel.state.value
-    val activity = LocalActivity.current
-    BackHandler {
-        activity?.finish()
-    }
+    val coinsState = viewModel.coinsState.value
+    val signOutState = viewModel.signOurState.value
 
     Box(modifier = Modifier.fillMaxSize()) {
         when {
-            state.isLoading -> {
+            coinsState.isLoading -> {
+                LaunchedEffect(signOutState) {
+                    if(signOutState) {
+                        navController.navigate(Screen.AuthScreen.route) {
+                            popUpTo(Screen.CoinsListScreen.route) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                }
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center),
                     strokeWidth = 5.dp
                 )
             }
-            state.error != null -> {
+            coinsState.error != null -> {
                 EmptyScreen(
-                    message = state.error,
+                    message = coinsState.error,
                     onRefresh = viewModel::onCoinsLoadOrRefresh
                 )
             }
             else -> {
                 CoinsList(
-                    coins = state.coins,
+                    coins = coinsState.coins,
                     navController = navController,
-                    onSignOut = {
-                        viewModel.signOutUser()
-                        navController.navigateUp()
-                    }
+                    onSignOut = viewModel::signOutUser
                 )
             }
         }

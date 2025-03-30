@@ -1,6 +1,5 @@
 package com.example.cryptocurrency.presentation.screens.auth.components
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -13,14 +12,18 @@ import com.example.cryptocurrency.domain.use_case.validate_auth_form.validate_pa
 import com.example.cryptocurrency.presentation.screens.auth.components.form.AuthFormEvent
 import com.example.cryptocurrency.presentation.screens.auth.components.form.AuthFormState
 import com.example.cryptocurrency.domain.model.AuthType
+import com.example.cryptocurrency.domain.use_case.save_input_state.SaveInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val firebaseAuthRepository: FirebaseAuthRepository
+    private val firebaseAuthRepository: FirebaseAuthRepository,
+    private val saveInputUseCase: SaveInputUseCase
 ) : ViewModel() {
 
     private val validateEmail = ValidateEmail()
@@ -32,13 +35,20 @@ class AuthViewModel @Inject constructor(
         private set
 
     init {
+        authResponseState = AuthResponseState(isLoading = false)
         if(firebaseAuthRepository.isUserLoggedIn()) {
             authResponseState = AuthResponseState(isSuccess = true)
+        }
+        else {
+            authResponseState = AuthResponseState(isLoading = false)
         }
     }
 
     fun onEvent(event: AuthFormEvent) {
         when(event) {
+            is AuthFormEvent.AnonymousInput -> {
+                saveAnonymousInput(input = event.input)
+            }
             is AuthFormEvent.AuthTypeChanged -> {
                 authFormState = AuthFormState(authType = event.authType)
             }
@@ -63,6 +73,13 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    private fun saveAnonymousInput(input: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            saveInputUseCase(input = input)
+            authFormState = authFormState.copy(isAnonymousInput = input)
+        }
+    }
+
     private fun submitData() {
         val emailResult = validateEmail(email = authFormState.email)
         val passwordResult = validatePassword(password = authFormState.password)
@@ -71,6 +88,7 @@ class AuthViewModel @Inject constructor(
                 emailError = emailResult.error,
                 passwordError = passwordResult.error
             )
+            authResponseState = AuthResponseState()
         }
         else
             signUpWithData()
@@ -86,6 +104,10 @@ class AuthViewModel @Inject constructor(
                     authResponseState = AuthResponseState(isSuccess = true)
                 }
                 is ResultWrapper.Error -> {
+                    authFormState = authFormState.copy(
+                        emailError = null,
+                        passwordError = null
+                    )
                     authResponseState = AuthResponseState(error = result.message)
                 }
                 is ResultWrapper.Loading -> {
@@ -105,6 +127,10 @@ class AuthViewModel @Inject constructor(
                     authResponseState = AuthResponseState(isSuccess = true)
                 }
                 is ResultWrapper.Error -> {
+                    authFormState = authFormState.copy(
+                        emailError = null,
+                        passwordError = null
+                    )
                     authResponseState = AuthResponseState(error = result.message)
                 }
                 is ResultWrapper.Loading -> {

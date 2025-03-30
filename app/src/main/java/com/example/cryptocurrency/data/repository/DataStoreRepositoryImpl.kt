@@ -11,7 +11,15 @@ class DataStoreRepositoryImpl(
         dataStoreOperations.saveOnBoardingState(completed)
     }
 
+    override suspend fun saveInputState(input: Boolean) {
+        dataStoreOperations.saveInputState(input)
+    }
+
     override fun readOnBoardingState(): Flow<Boolean> {
         return dataStoreOperations.readOnBoardingState()
+    }
+
+    override fun readInputState(): Flow<Boolean> {
+        return dataStoreOperations.readInputState()
     }
 }

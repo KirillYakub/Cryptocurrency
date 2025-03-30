@@ -23,7 +23,7 @@ fun CoinsListTopBar(onSignOut: () -> Unit) {
                 style = MaterialTheme.typography.titleLarge
             )
         },
-        navigationIcon = {
+        actions = {
             IconButton(onClick = onSignOut) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ExitToApp,
@@ -34,7 +34,7 @@ fun CoinsListTopBar(onSignOut: () -> Unit) {
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.background,
             titleContentColor = MaterialTheme.colorScheme.onBackground,
-            navigationIconContentColor = MaterialTheme.colorScheme.onBackground
+            actionIconContentColor = MaterialTheme.colorScheme.onBackground
         )
     )
 }

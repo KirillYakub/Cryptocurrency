@@ -27,6 +27,7 @@ fun SplashScreen(
 ) {
     val degrees = remember { Animatable(0f) }
     val isOnBoardingCompleted by splashViewModel.isOnBoardingCompleted.collectAsState()
+    val isInputAnonymously by splashViewModel.isInputAnonymously.collectAsState()
 
     LaunchedEffect(Unit) {
         degrees.animateTo(
@@ -36,8 +37,11 @@ fun SplashScreen(
                 delayMillis = 200
             )
         )
-        val routeToNav =
-            if(isOnBoardingCompleted) Screen.AuthScreen.route else Screen.BoardScreen.route
+        val routeToNav = when {
+            isInputAnonymously -> Screen.CoinsListScreen.route
+            isOnBoardingCompleted -> Screen.AuthScreen.route
+            else -> Screen.BoardScreen.route
+        }
         navController.navigate(routeToNav) {
             popUpTo(Screen.SplashScreen.route) {
                 inclusive = true

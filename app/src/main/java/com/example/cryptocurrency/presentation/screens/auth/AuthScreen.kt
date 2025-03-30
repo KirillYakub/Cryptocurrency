@@ -1,5 +1,7 @@
 package com.example.cryptocurrency.presentation.screens.auth
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.util.Log
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.Image
@@ -17,6 +19,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,6 +29,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
@@ -35,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.cryptocurrency.R
+import com.example.cryptocurrency.common.Constants.SECONDARY_BUTTONS_DEFAULT_ALPHA
 import com.example.cryptocurrency.domain.model.AuthType
 import com.example.cryptocurrency.navigation.Screen
 import com.example.cryptocurrency.presentation.screens.auth.components.AuthViewModel
@@ -45,6 +51,7 @@ import com.example.cryptocurrency.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.cryptocurrency.presentation.ui.theme.MEDIUM_PADDING
 import com.example.cryptocurrency.presentation.ui.theme.SMALL_PADDING
 
+@SuppressLint("SourceLockedOrientationActivity")
 @Composable
 fun AuthScreen(
     navController: NavController,
@@ -53,21 +60,18 @@ fun AuthScreen(
     val authState = viewModel.authResponseState
     val authFormState = viewModel.authFormState
 
-    val activity = LocalActivity.current
-    val statusBarColor = MaterialTheme.colorScheme.onPrimaryContainer
-    SideEffect {
-        activity?.window?.statusBarColor = statusBarColor.toArgb()
-    }
-    LaunchedEffect(authState.isSuccess) {
-        if(authState.isSuccess) {
+    LaunchedEffect(authState.isSuccess, authFormState.isAnonymousInput) {
+        if(authState.isSuccess || authFormState.isAnonymousInput) {
             navController.navigate(Screen.CoinsListScreen.route) {
-                popUpTo(Screen.AuthScreen.route)
+                popUpTo(Screen.AuthScreen.route) {
+                    inclusive = true
+                }
             }
         }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if (authState.isLoading) {
+        if (authState.isLoading || authState.isSuccess) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center),
                 strokeWidth = 5.dp
@@ -103,7 +107,11 @@ fun AuthScreen(
                     }
                 }
                 Column(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = MEDIUM_PADDING)
+                        .navigationBarsPadding()
+                        .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
@@ -172,20 +180,23 @@ fun AuthScreen(
                             }
                         )
                     }
+                    Spacer(modifier = Modifier.height(MEDIUM_PADDING))
+                    Text(
+                        text = "Use app anonymously",
+                        modifier = Modifier
+                            .alpha(SECONDARY_BUTTONS_DEFAULT_ALPHA)
+                            .clickable {
+                                viewModel.onEvent(AuthFormEvent.AnonymousInput(input = true))
+                            }
+                    )
+                    if(authState.error != null) {
+                        Spacer(modifier = Modifier.height(EXTRA_LARGE_PADDING))
+                        Text(
+                            text = authState.error,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
                 }
-            }
-            if(authState.error != null) {
-                Text(
-                    text = authState.error,
-                    color = MaterialTheme.colorScheme.error,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = MEDIUM_PADDING)
-                        .padding(horizontal = AUTH_CONTENT_PADDING)
-                        .navigationBarsPadding()
-                )
             }
         }
     }

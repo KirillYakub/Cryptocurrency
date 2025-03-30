@@ -4,8 +4,9 @@ import com.example.cryptocurrency.domain.model.AuthType
 
 data class AuthFormState(
     val authType: AuthType = AuthType.SIGN_UP,
-    val email: String = "kirillyaku@gmail.com",
+    val email: String = "",
     val emailError: String? = null,
-    val password: String = "Hilumulu2303",
-    val passwordError: String? = null
+    val password: String = "",
+    val passwordError: String? = null,
+    val isAnonymousInput: Boolean = false
 )

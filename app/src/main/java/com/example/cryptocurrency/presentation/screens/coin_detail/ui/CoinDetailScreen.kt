@@ -37,24 +37,24 @@ import com.example.cryptocurrency.presentation.ui.theme.SMALL_PADDING
 
 @Composable
 fun CoinDetailScreen(viewModel: CoinDetailViewModel = hiltViewModel()) {
-    val state = viewModel.state.value
+    val coinDetailState = viewModel.coinDetailState.value
     Box(modifier = Modifier.fillMaxSize()) {
         when {
-            state.isLoading -> {
+            coinDetailState.isLoading -> {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .align(Alignment.Center),
                     strokeWidth = 5.dp
                 )
             }
-            state.error != null -> {
+            coinDetailState.error != null -> {
                 EmptyScreen(
-                    message = state.error,
+                    message = coinDetailState.error,
                     onRefresh = viewModel::onCoinDetailLoadOrRefresh
                 )
             }
             else -> {
-                state.coin?.let { coin ->
+                coinDetailState.coin?.let { coin ->
                     CoinDetails(coin = coin)
                 }
             }
