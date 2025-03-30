@@ -1,3 +1,8 @@
+<h3>v1.2 update:</h3>
+<ul>
+  <li>Add login with Firebase screen</li>
+  <li>Add opportunity to use app in anonymous mode</li>
+</ul>
 <h3>v1.1 update:</h3>
 <ul>
   <li>Add custom splash screen</li>
