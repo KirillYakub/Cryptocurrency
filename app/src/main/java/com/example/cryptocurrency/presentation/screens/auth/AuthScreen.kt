@@ -182,7 +182,7 @@ fun AuthScreen(
                     }
                     Spacer(modifier = Modifier.height(MEDIUM_PADDING))
                     Text(
-                        text = "Use app anonymously",
+                        text = stringResource(R.string.use_app_anonymously),
                         modifier = Modifier
                             .alpha(SECONDARY_BUTTONS_DEFAULT_ALPHA)
                             .clickable {
