@@ -47,7 +47,7 @@ fun OnBoardScreen(
 
     LaunchedEffect(isCompletedSaved) {
         if(isCompletedSaved) {
-            navController.navigate(Screen.CoinsListScreen.route) {
+            navController.navigate(Screen.AuthScreen.route) {
                 popUpTo(Screen.BoardScreen.route) {
                     inclusive = true
                 }

@@ -19,8 +19,8 @@ class CoinDetailViewModel @Inject constructor(
     private val savesStateHandle: SavedStateHandle
 ): ViewModel() {
 
-    private val _state = mutableStateOf(CoinDetailState())
-    val state: State<CoinDetailState> = _state
+    private val _coinDetailState = mutableStateOf(CoinDetailState())
+    val coinDetailState: State<CoinDetailState> = _coinDetailState
 
     init {
         onCoinDetailLoadOrRefresh()
@@ -34,13 +34,13 @@ class CoinDetailViewModel @Inject constructor(
         coinUseCase(coinId).onEach { result ->
             when(result) {
                 is Resource.Success -> {
-                    _state.value = CoinDetailState(coin = result.data)
+                    _coinDetailState.value = CoinDetailState(coin = result.data)
                 }
                 is Resource.Error -> {
-                    _state.value = CoinDetailState(error = result.message)
+                    _coinDetailState.value = CoinDetailState(error = result.message)
                 }
                 is Resource.Loading -> {
-                    _state.value = CoinDetailState(isLoading = true)
+                    _coinDetailState.value = CoinDetailState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)
