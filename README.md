@@ -1,3 +1,12 @@
+<h3>Preview:</h3>
+<p>
+  <img src="https://github.com/KirillYakub/Cryptocurrency/blob/2ce2b466ef66bb87015ae00e65c2b7db41b32c38/preview_1.jpg" width = "280px" height = "620px"/>
+  <img src="https://github.com/KirillYakub/Cryptocurrency/blob/2ce2b466ef66bb87015ae00e65c2b7db41b32c38/preview_2.jpg" width = "280px" height = "620px"/>
+  <img src="https://github.com/KirillYakub/Cryptocurrency/blob/2ce2b466ef66bb87015ae00e65c2b7db41b32c38/preview_3.jpg" width = "280px" height = "620px"/>
+  <img src="https://github.com/KirillYakub/Cryptocurrency/blob/2ce2b466ef66bb87015ae00e65c2b7db41b32c38/preview_4.jpg" width = "280px" height = "620px"/>
+  <img src="https://github.com/KirillYakub/Cryptocurrency/blob/2ce2b466ef66bb87015ae00e65c2b7db41b32c38/preview_5.jpg" width = "280px" height = "620px"/>
+  <img src="https://github.com/KirillYakub/Cryptocurrency/blob/2ce2b466ef66bb87015ae00e65c2b7db41b32c38/preview_6.jpg" width = "280px" height = "620px"/>
+</p>
 <h3>v1.2 update:</h3>
 <ul>
   <li>Add login with Firebase screen</li>
