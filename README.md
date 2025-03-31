@@ -30,6 +30,6 @@
   <li>DataStore Preferences for local catching</li>
 </ul>
 <h4>Other</h4>
-Pattern: MVVM<br>
+Pattern: MVVM & MVI<br>
 UI: Jetpack Compose<br>
 Coins api: https://api.coinpaprika.com
